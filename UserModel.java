@@ -1,7 +1,7 @@
 public class UserModel {
     private String name,phoneno,email,address,passowrd;
     private double balance;
-    int id;
+    private int id;
     public UserModel(String name,String phoneno,String email,String address,String password,double balance)
     {
         this.address = address;

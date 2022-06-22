@@ -5,7 +5,7 @@ public class check {
         Scanner in = new Scanner(System.in);
         System.out.println("Welcome!!! "+model.getName());
         while (true) {
-            System.out.println("1) Check Balance 2) Withdraw 3) Deposite 4) Edit Your Profile 5) Logout");
+            System.out.println("1) Check Balance 2) Withdraw 3) Deposite 4) Edit Your Profile 5) Transaction History 6) Logout");
             int n = in.nextInt();
             if (n==1) {
                 System.out.println("Your balance is "+model.getBalance());
@@ -38,7 +38,34 @@ public class check {
             if (n==4) {
                 
             }
-            if(n==5){
+            if (n==5) {
+                String sql = "SELECT a.id,a.amount,a.descripton,a.created_at,b.name as sender_name, c.name as reciver_name FROM `transaction` a LEFT JOIN bank b ON b.acc_no = a.sender left JOIN bank c ON c.acc_no = a.reciver WHERE a.sender = ?";
+                Connection con = new DBConfig().connection();
+                if (con != null) {
+                    try {
+                        PreparedStatement statement = con.prepareStatement(sql);
+                        statement.setInt(1, model.getId());
+                        ResultSet set = statement.executeQuery();
+                        System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------");
+                        System.out.println("------   DATE    -------  ID  ----------         TO          -----------    AMOUNT        -----------     DESCRIPTION      ----------------------");
+                        System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------");
+                        while (set.next()) {
+                            System.out.println(set.getString(4)+"-------"+set.getString(1)+"-------"+set.getString(6)+"-------"+set.getString(2)+"-------"+set.getString(3)+"-------");
+                            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------");
+                        }
+                    } catch (SQLException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
+                }
+                else
+                {
+                    System.out.println("Connection problem");
+                }
+
+            }
+            if(n==6){
                 model = null;
                 System.out.println("You have Logged Out!!!");
                 break;
