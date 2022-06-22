@@ -3,7 +3,7 @@ import java.util.*;
 public class Withdraw {
     public boolean withdraws(UserModel user,double withdraw) {
         Connection connection = new DBConfig().connection();
-        
+        System.out.println("Hello");
 
         if (connection!=null) {
             try {
@@ -13,10 +13,12 @@ public class Withdraw {
                 statement.setInt(2, user.getId());
                 statement.executeUpdate();
 
-                // PreparedStatement statement2 = connection.prepareStatement("INSERT INTO `transaction`( `sender`, `reciver`, `amount`, `descripton`) VALUES (?,?,?,?)");                statement2.setInt(1, user.getId());
-                // statement2.setDouble(3, withdraw);
-                // statement2.setString(4, "self withdraw");
-                // statement2.executeUpdate();
+                PreparedStatement statement2 = connection.prepareStatement("INSERT INTO `transaction`( `sender`, `reciver`, `amount`, `descripton`) VALUES (?,?,?,?)");                
+                statement2.setInt(1, user.getId());
+                statement2.setInt(2, user.getId());
+                statement2.setDouble(3, withdraw);
+                statement2.setString(4, "self withdraw");
+                statement2.executeUpdate();
                 user.setBalance(user.getBalance() - withdraw);
                 connection.commit();
                 connection.close();
