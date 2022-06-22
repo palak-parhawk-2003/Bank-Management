@@ -2,7 +2,7 @@ import java.sql.*;
 import java.util.*;
 import java.util.Scanner;
 public class Login {
-    public static void main(String[] args) {
+    public void login() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter the Username");
         String uname = sc.nextLine();
@@ -14,8 +14,12 @@ public class Login {
 
         if (user!=null) {
             System.out.println("Hi! "+user.getName()+" you have Successfully login");
+            
         } else {
             System.out.println("Error in login");
         }
+    }
+    public static void main(String[] args) {
+       
     }
 }
