@@ -14,12 +14,9 @@ public class Login {
 
         if (user!=null) {
             System.out.println("Hi! "+user.getName()+" you have Successfully login");
-            
+            new check().dashboard(user);
         } else {
             System.out.println("Error in login");
         }
-    }
-    public static void main(String[] args) {
-       
     }
 }

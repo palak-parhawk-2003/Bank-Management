@@ -7,6 +7,7 @@ public class DBConfig {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bankmanagement","root","");
+            con.setAutoCommit(false);
             return con;
         } catch (Exception e) {
             // TODO Auto-generated catch block
