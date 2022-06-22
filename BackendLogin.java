@@ -5,9 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class BackendLogin {
-    public static void main(String[] args) {
-        String id = 100+"";
-        String pass = "Sub@2014";
+    public UserModel login(String id,String password) {
         Connection con = new DBConfig().connection();
         if (con!=null) {
             try {
@@ -16,19 +14,27 @@ public class BackendLogin {
                 ResultSet resultSet = statement.executeQuery();
                 resultSet.next();
                 UserModel model = new UserModel(resultSet.getInt("acc_no"),resultSet.getString("name"),resultSet.getString(3),resultSet.getString(4), resultSet.getString(5), resultSet.getString(7), resultSet.getDouble(6));
-                if (model.getPassword().equals(pass)) {
-                  System.out.println("You have logged in successfully "+model.getName());  
+                if (model.getPassword().equals(password)) {
+                //   System.out.println("You have logged in successfully "+model.getName());  
+                    return model;
                 } else {
-                    System.out.println("You haven't logged in successfully ");  
+                    System.out.println("Wrong password");
+                    return null;
                     
                 }
             } catch (SQLException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
+                return null;
             }
         } else {
+
+            return null;
             
         }
+    }
+    public static void main(String[] args) {
+        
 
     }
 }

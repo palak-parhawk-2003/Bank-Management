@@ -10,6 +10,12 @@ public class Login {
         System.out.println("Enter the Password");
         String upass = sc.nextLine();
         
-        
+        UserModel user = new BackendLogin().login(uname, upass);
+
+        if (user!=null) {
+            System.out.println("Hi! "+user.getName()+" you have Successfully login");
+        } else {
+            System.out.println("Error in login");
+        }
     }
 }
