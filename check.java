@@ -31,9 +31,13 @@ public class check {
             if (n==3) {
                 System.out.println("Enter amount to be deposited: ");
                 Double deposite = in.nextDouble();
-                double amount = model.getBalance() + deposite;
-                // System.out.println("Transaction Successful!!!");
-                System.out.println("Your current balance is: "+amount);
+                boolean status = new Deposite().deposite(model, deposite);
+                if (status) {
+                    System.out.println("Transaction Successful!!!");
+                } else {
+                    System.out.println("Transaction Unsuccessful!!!");
+                }
+                System.out.println("Your current balance is: "+model.getBalance());
             }
             if (n==4) {
                 
