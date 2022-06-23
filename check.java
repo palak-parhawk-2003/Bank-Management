@@ -5,7 +5,7 @@ public class check {
         Scanner in = new Scanner(System.in);
         System.out.println("Welcome!!! "+model.getName());
         while (true) {
-            System.out.println("1) Check Balance 2) Withdraw 3) Deposite 4) Edit Your Profile 5) Transaction History 6) Logout");
+            System.out.println("1) Check Balance 2) Withdraw 3) Deposite 4)Transfer 5) Edit Your Profile 6) Transaction History 7) Logout");
             int n = in.nextInt();
             if (n==1) {
                 System.out.println("Your balance is "+model.getBalance());
@@ -39,10 +39,13 @@ public class check {
                 }
                 System.out.println("Your current balance is: "+model.getBalance());
             }
-            if (n==4) {
-                
+            if(n==4) {
+                new Transfer().transfer(model);
             }
             if (n==5) {
+                new Editprofile().edit(model);
+            }
+            if (n==6) {
                 String sql = "SELECT a.id,a.amount,a.descripton,a.created_at,b.name as sender_name, c.name as reciver_name FROM `transaction` a LEFT JOIN bank b ON b.acc_no = a.sender left JOIN bank c ON c.acc_no = a.reciver WHERE a.sender = ?";
                 Connection con = new DBConfig().connection();
                 if (con != null) {
@@ -69,7 +72,7 @@ public class check {
                 }
 
             }
-            if(n==6){
+            if(n==7){
                 model = null;
                 System.out.println("You have Logged Out!!!");
                 break;
