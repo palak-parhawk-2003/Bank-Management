@@ -5,7 +5,7 @@ public class check {
         Scanner in = new Scanner(System.in);
         System.out.println("Welcome!!! "+model.getName());
         while (true) {
-            System.out.println("1) Check Balance 2) Withdraw 3) Deposite 4)Transfer 5) Edit Your Profile 6) Transaction History 7) Logout");
+            System.out.println("1) Check Balance 2) Self Withdraw 3) Self Deposite 4) Transfer 5) Edit Your Profile 6) Transaction History 7) Logout");
             int n = in.nextInt();
             if (n==1) {
                 System.out.println("Your balance is "+model.getBalance());
@@ -21,8 +21,7 @@ public class check {
                     boolean status = new Withdraw().withdraws(model, withdraw);
                     if (status) {
                         System.out.println("Transaction Successful!!!");
-                    } else {
-                        
+                    } else {  
                         System.out.println("Transaction Unsuccessful!!!");
                     }
                     System.out.println("Your current balance is: "+model.getBalance());
@@ -54,7 +53,7 @@ public class check {
                         statement.setInt(1, model.getId());
                         ResultSet set = statement.executeQuery();
                         System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------");
-                        System.out.println("------   DATE    -------  ID  ----------         TO          -----------    AMOUNT        -----------     DESCRIPTION      ----------------------");
+                        System.out.println("-------    DATE    -------  ID  ----------         TO          -----------    AMOUNT        -----------     DESCRIPTION      ----------------------");
                         System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------");
                         while (set.next()) {
                             System.out.println(set.getString(4)+"-------"+set.getString(1)+"-------"+set.getString(6)+"-------"+set.getString(2)+"-------"+set.getString(3)+"-------");

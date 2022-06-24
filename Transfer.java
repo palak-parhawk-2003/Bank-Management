@@ -20,9 +20,13 @@ public class Transfer {
                 if (rs.next()) {
                     System.out.println("Enter amount to be transfered: ");
                     double t = in.nextDouble();
+                    System.out.println("Enter Description: ");
+                    in.nextLine();
+                    String des = in.nextLine();
+                    
                     double diff = model.getBalance() - t;
                     if (model.getBalance() <= 500 || model.getBalance() < t || diff <= 500) {
-                        System.out.println("Sorry transaction is not possible!!!");
+                        System.out.println("Sorry transaction is not possible!!! insufficient balance");
                     } else {
                         PreparedStatement statement1 = con
                                 .prepareStatement("UPDATE `bank` SET `balance` = balance - ? WHERE `acc_no` = ?");
@@ -34,13 +38,19 @@ public class Transfer {
                         statement2.setDouble(1, t);
                         statement2.setDouble(2, r);
                         statement2.executeUpdate();
+                        PreparedStatement statement3 = con.prepareStatement("INSERT INTO `transaction`( `sender`, `reciver`, `amount`, `descripton`) VALUES (?,?,?,?)");                
+                statement3.setInt(1, model.getId());
+                statement3.setInt(2, r);
+                statement3.setDouble(3, t);
+                statement3.setString(4, des);
+                statement3.executeUpdate();
+                        model.setBalance(diff);
+                        System.out.println("Done!!! amount transfer of "+t+" to "+rs.getString(2));
                         con.commit();
                         con.close();
-                        System.out.println("Done!!!");
                     }
                 } else {
                     System.out.println("Please enter a valid Account number!!!");
-                    con.rollback();
                 }
             } catch (SQLException e) {
                 // TODO Auto-generated catch block
